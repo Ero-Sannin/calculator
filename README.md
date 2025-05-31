@@ -1,2 +1,1 @@
-This is a demo repo
-
+Calculator based on the odin project guidelines
