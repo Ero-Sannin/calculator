@@ -11,7 +11,10 @@ let opButtons=document.querySelectorAll("#calc-button-op");
 let calculateButton=document.querySelector("#calc-button-equal");
 
 
-
+function clear(){
+    output.textContent="";
+    output.id="";
+}
 function operate(){
     if(operator=='+'){
         return operand1+operand2;
@@ -56,6 +59,20 @@ numButtons.forEach(element => {
 
 opButtons.forEach((element)=>{
     element.addEventListener("click",(e)=>{
-        
+        if(output.id=="firstop"){
+            output.textContent="";
+            operator=e.target.textContent;
+        }
+        else if(output.id=="secondop"){
+            operate();
+            operand1=output.textContent;
+            operator=e.target.textContent;
+        }
+        else if(output.id=="result"){
+            operator=e.target.textContent;
+            operand1=output.textContent;
+        }
     })
 })
+
+acButton.addEventListener("click",clear);
