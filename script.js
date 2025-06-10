@@ -86,6 +86,7 @@ opButtons.forEach((element) => {
             operand1 = output.textContent;
             output.id = "secondop";
         }
+        
     })
 })
 
