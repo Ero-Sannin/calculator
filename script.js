@@ -9,7 +9,7 @@ let acButton = document.querySelector("#ac");
 let numButtons = document.querySelectorAll("#calc-button-num");
 let opButtons = document.querySelectorAll("#calc-button-op");
 let calculateButton = document.querySelector("#calc-button-equal");
-let dotButton=document.querySelector("#calc-button-dot");
+let dotButton = document.querySelector("#calc-button-dot");
 
 
 
@@ -44,11 +44,14 @@ function operate() {
             operator = "";
             return;
         }
-        output.textContent = add();
-        output.id = "result";
-        operand1 = "";
-        operand2 = "";
-        operator = "";
+        else {
+            output.textContent = divide();
+            output.id = "result";
+            operand1 = "";
+            operand2 = "";
+            operator = "";
+        }
+
     }
 }
 
@@ -61,7 +64,7 @@ function substract() {
 function multiply() {
     return Number(operand1) * Number(operand2);
 }
-function substract() {
+function divide() {
     return Number(operand1) / Number(operand2);
 }
 
@@ -132,11 +135,11 @@ delButton.addEventListener("click", () => {
 })
 
 dotButton.addEventListener("click", () => {
-    if(output.textContent.includes(".") || output.id=="result" || output.id=="error"){
+    if (output.textContent.includes(".") || output.id == "result" || output.id == "error") {
         return;
     }
-    else{
-        output.textContent+=".";
+    else {
+        output.textContent += ".";
     }
 })
 
