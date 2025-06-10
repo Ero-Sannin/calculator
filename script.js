@@ -9,33 +9,62 @@ let acButton = document.querySelector("#ac");
 let numButtons = document.querySelectorAll("#calc-button-num");
 let opButtons = document.querySelectorAll("#calc-button-op");
 let calculateButton = document.querySelector("#calc-button-equal");
+let dotButton=document.querySelector("#calc-button-dot");
 
 
-function clear() {
-    output.textContent = "";
-    output.id = "";
-}
+
 function operate() {
     if (operator == '+') {
-        return operand1 + operand2;
+        output.textContent = add();
+        output.id = "result";
+        operand1 = "";
+        operand2 = "";
+        operator = "";
     }
     else if (operator == '-') {
-        return operand1 - operand2;
+        output.textContent = substract();
+        output.id = "result";
+        operand1 = "";
+        operand2 = "";
+        operator = "";
     }
     else if (operator == 'X') {
-        return operand1 * operand2;
+        output.textContent = multiply();
+        output.id = "result";
+        operand1 = "";
+        operand2 = "";
+        operator = "";
     }
-    else {
-        return operand1 / operand2;
+    else if (operator == '/') {
+        if (operand2 == 0) {
+            output.textContent = "error";
+            output.id = "error";
+            operand1 = "";
+            operand2 = "";
+            operator = "";
+            return;
+        }
+        output.textContent = add();
+        output.id = "result";
+        operand1 = "";
+        operand2 = "";
+        operator = "";
     }
 }
 
 function add() {
-    if (output.id == "") {
-        operand1 = output.textContent;
-        output.id = "p"
-    }
+    return Number(operand1) + Number(operand2);
 }
+function substract() {
+    return Number(operand1) - Number(operand2);
+}
+function multiply() {
+    return Number(operand1) * Number(operand2);
+}
+function substract() {
+    return Number(operand1) / Number(operand2);
+}
+
 
 
 numButtons.forEach(element => {
@@ -84,12 +113,33 @@ opButtons.forEach((element) => {
         else if (output.id == "result") {
             operator = e.target.textContent;
             operand1 = output.textContent;
+            output.textContent = "";
             output.id = "secondop";
         }
-        
+
     })
 })
 
-acButton.addEventListener("click", clear);
+acButton.addEventListener("click", () => {
+    output.textContent = "";
+    output.id = "";
+});
+
+delButton.addEventListener("click", () => {
+    if (output.textContent != "") {
+        output.textContent = output.textContent.slice(0, -1);
+    }
+})
+
+dotButton.addEventListener("click", () => {
+    if(output.textContent.includes(".") || output.id=="result" || output.id=="error"){
+        return;
+    }
+    else{
+        output.textContent+=".";
+    }
+})
+
+calculateButton.addEventListener("click", operate);
 
 
