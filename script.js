@@ -6,10 +6,10 @@ let operator = "";
 let output = document.querySelector(".output");
 let delButton = document.querySelector("#del");
 let acButton = document.querySelector("#ac");
-let numButtons = document.querySelectorAll("#calc-button-num");
-let opButtons = document.querySelectorAll("#calc-button-op");
-let calculateButton = document.querySelector("#calc-button-equal");
-let dotButton = document.querySelector("#calc-button-dot");
+let numButtons = document.querySelectorAll(".calc-button-num");
+let opButtons = document.querySelectorAll(".calc-button-op");
+let calculateButton = document.querySelector(".calc-button-equal");
+let dotButton = document.querySelector(".calc-button-dot");
 
 
 
@@ -89,6 +89,15 @@ numButtons.forEach(element => {
     })
 });
 
+
+    document.addEventListener("keydown",(e)=>{
+        if(e.key="enter"){
+            e.preventDefault();
+            calculateButton.dispatchEvent(new Event("click"));
+        }
+    })
+
+
 opButtons.forEach((element) => {
     element.addEventListener("click", (e) => {
         if (output.id == "firstop") {
@@ -144,5 +153,7 @@ dotButton.addEventListener("click", () => {
 })
 
 calculateButton.addEventListener("click", operate);
+
+
 
 
