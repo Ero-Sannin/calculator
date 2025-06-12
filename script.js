@@ -16,6 +16,9 @@ let dotButton = document.querySelector(".calc-button-dot");
 function isNumber(value) {
     return !isNaN(value) && isFinite(value);
 }
+function isFloat(value) {
+    return isNumber(value) && !Number.isInteger(value);
+}
 
 function operate() {
     if (operator == '+') {
@@ -26,7 +29,7 @@ function operate() {
         operator = "";
     }
     else if (operator == '-') {
-        output.textContent = substract();
+        output.textContent = subtract();
         output.id = "result";
         operand1 = "";
         operand2 = "";
@@ -57,12 +60,15 @@ function operate() {
         }
 
     }
+    if(isFloat(output.textContent)){
+        output.textContent=Number(output.textContent).toFixed(2);
+    }
 }
 
 function add() {
     return Number(operand1) + Number(operand2);
 }
-function substract() {
+function subtract() {
     return Number(operand1) - Number(operand2);
 }
 function multiply() {
@@ -95,7 +101,7 @@ numButtons.forEach(element => {
 
 
 document.addEventListener("keydown", (e) => {
-    if (e.key == "enter") {
+    if (e.key == "Enter") {
         e.preventDefault();
         calculateButton.dispatchEvent(new Event("click"));
     }
@@ -167,7 +173,17 @@ acButton.addEventListener("click", () => {
 
 delButton.addEventListener("click", () => {
     if (output.textContent != "") {
-        output.textContent = output.textContent.slice(0, -1);
+        if (output.id == "firstop") {
+            output.textContent = output.textContent.slice(0, -1);
+            operand1 = output.textContent;
+        }
+        else if (output.id == "secondop") {
+            output.textContent = output.textContent.slice(0, -1);
+            operand2 = output.textContent;
+        }
+        else if (output.id == "result") {
+            output.textContent = output.textContent.slice(0, -1);
+        }
     }
 })
 
