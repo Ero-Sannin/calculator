@@ -13,6 +13,10 @@ let dotButton = document.querySelector(".calc-button-dot");
 
 
 
+function isNumber(value) {
+    return !isNaN(value) && isFinite(value);
+}
+
 function operate() {
     if (operator == '+') {
         output.textContent = add();
@@ -28,7 +32,7 @@ function operate() {
         operand2 = "";
         operator = "";
     }
-    else if (operator == 'X') {
+    else if (operator == '*') {
         output.textContent = multiply();
         output.id = "result";
         operand1 = "";
@@ -90,12 +94,33 @@ numButtons.forEach(element => {
 });
 
 
-    document.addEventListener("keydown",(e)=>{
-        if(e.key="enter"){
-            e.preventDefault();
-            calculateButton.dispatchEvent(new Event("click"));
-        }
-    })
+document.addEventListener("keydown", (e) => {
+    if (e.key == "enter") {
+        e.preventDefault();
+        calculateButton.dispatchEvent(new Event("click"));
+    }
+    else if (e.key == "*" || e.key == "+" || e.key == "-" || e.key == "/") {
+        e.preventDefault();
+        opButtons.forEach((element) => {
+            if (element.textContent == e.key) {
+                element.dispatchEvent(new Event("click"));
+            }
+        });
+    }
+    else if (isNumber(e.key)) {
+        e.preventDefault();
+        numButtons.forEach((element) => {
+            if (element.textContent == e.key) {
+                element.dispatchEvent(new Event("click"));
+            }
+        })
+    }
+    else if (e.key == ".") {
+        e.preventDefault();
+        dotButton.dispatchEvent(new Event("click"));
+    }
+
+});
 
 
 opButtons.forEach((element) => {
@@ -135,6 +160,9 @@ opButtons.forEach((element) => {
 acButton.addEventListener("click", () => {
     output.textContent = "";
     output.id = "";
+    operand1 = "";
+    operand2 = "";
+    operator = "";
 });
 
 delButton.addEventListener("click", () => {
@@ -147,8 +175,13 @@ dotButton.addEventListener("click", () => {
     if (output.textContent.includes(".") || output.id == "result" || output.id == "error") {
         return;
     }
-    else {
+    else if (output.id == "firstop") {
         output.textContent += ".";
+        operand1 += ".";
+    }
+    else if (output.id == "secondop") {
+        output.textContent += ".";
+        operand2 += ".";
     }
 })
 
