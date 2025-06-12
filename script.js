@@ -60,7 +60,7 @@ function operate() {
         }
 
     }
-    if(isFloat(output.textContent)){
+    if(isFloat(Number(output.textContent))){
         output.textContent=Number(output.textContent).toFixed(2);
     }
 }
