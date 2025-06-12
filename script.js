@@ -12,7 +12,9 @@ let calculateButton = document.querySelector(".calc-button-equal");
 let dotButton = document.querySelector(".calc-button-dot");
 
 
-
+function limitCheck(){
+    return output.textContent.length>=14;
+}
 function isNumber(value) {
     return !isNaN(value) && isFinite(value);
 }
@@ -82,6 +84,9 @@ function divide() {
 
 numButtons.forEach(element => {
     element.addEventListener("click", (e) => {
+        if(limitCheck()){
+            return;
+        }
         if (output.id == "" || output.id == "result") {
             output.textContent = "";
             output.textContent += e.target.textContent;
@@ -202,6 +207,12 @@ dotButton.addEventListener("click", () => {
 })
 
 calculateButton.addEventListener("click", operate);
+
+document.addEventListener("keydown",(e)=>{
+    if(e.key=="Backspace"){
+    e.preventDefault();
+    delButton.dispatchEvent(new Event("click"));}
+});
 
 
 
